@@ -46,17 +46,28 @@ export class APIBase {
   constructor(
     public httpEndpoint: string,
     public type: 'webapp' | 'copilot' | 'teams' | 'slack' | 'discord',
+    public additionalQueryParams?: Record<string, string>,
     public on401?: () => void,
     public onError?: (error: ClientError) => void
   ) {}
 
   buildEndpoint(path: string) {
+    let fullUrl = `${this.httpEndpoint}${path}`;
     if (this.httpEndpoint.endsWith('/')) {
       // remove trailing slash on httpEndpoint
-      return `${this.httpEndpoint.slice(0, -1)}${path}`;
-    } else {
-      return `${this.httpEndpoint}${path}`;
+      fullUrl = `${this.httpEndpoint.slice(0, -1)}${path}`;
     }
+
+    // Add version parameter for all API endpoints
+    let url = new URL(fullUrl);
+
+    if (this.additionalQueryParams) {
+      const params = new URLSearchParams(this.additionalQueryParams);
+      const separator = url.search ? '&' : '?';
+      url.search = url.search + `${separator}${params.toString()}`;
+    }
+
+    return url.toString();
   }
 
   private async getDetailFromErrorResponse(
@@ -323,7 +334,8 @@ export class ChainlitAPI extends APIBase {
     return this.buildEndpoint(`/project/file/${id}${queryParams}`);
   }
 
-  getLogoEndpoint(theme: string) {
+  getLogoEndpoint(theme: string, config: any) {
+    if (config?.ui?.logo_file_url) return config?.ui?.logo_file_url;
     return this.buildEndpoint(`/logo?theme=${theme}`);
   }
 

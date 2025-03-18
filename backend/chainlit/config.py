@@ -138,6 +138,12 @@ cot = "full"
 # The Javascript file can be served from the public directory.
 # custom_js = "/public/test.js"
 
+# Load assistant logo directly from URL.
+logo_file_url = ""
+
+# Load assistant avatar image directly from URL.
+avatar_file_url = ""
+
 # Specify a custom meta image url.
 # custom_meta_image_url = "https://chainlit-cloud.s3.eu-west-3.amazonaws.com/logo/chainlit_banner.png"
 
@@ -250,6 +256,10 @@ class UISettings(DataClassJsonMixin):
     custom_build: Optional[str] = None
     # Optional header links
     header_links: Optional[List[HeaderLink]] = None
+    # Optional logo file url
+    logo_file_url: Optional[str] = None
+    # Optional avatar image file url
+    avatar_file_url: Optional[str] = None
 
 
 @dataclass()
