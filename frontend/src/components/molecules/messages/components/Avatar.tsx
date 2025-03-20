@@ -1,13 +1,5 @@
-import { useContext, useMemo } from 'react';
-
 import { Tooltip } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-
-import {
-  ChainlitContext,
-  useChatSession,
-  useConfig
-} from '@chainlit/react-client';
 
 interface Props {
   author?: string;
@@ -15,21 +7,8 @@ interface Props {
 }
 
 const MessageAvatar = ({ author, hide }: Props) => {
-  const apiClient = useContext(ChainlitContext);
-  const { chatProfile } = useChatSession();
-  const { config } = useConfig();
-
-  const selectedChatProfile = useMemo(() => {
-    return config?.chatProfiles.find((profile) => profile.name === chatProfile);
-  }, [config, chatProfile]);
-
-  const avatarUrl = useMemo(() => {
-    const isAssistant = !author || author === config?.ui.name;
-    if (isAssistant && selectedChatProfile?.icon) {
-      return selectedChatProfile.icon;
-    }
-    return apiClient?.buildEndpoint(`/avatars/${author || 'default'}`);
-  }, [apiClient, selectedChatProfile, config, author]);
+  const avatarUrl =
+    'https://res.cloudinary.com/snyk/image/upload/v1741689722/snyk-learn/chatbot-avatar.png';
 
   return (
     <span className={`message-avatar`}>

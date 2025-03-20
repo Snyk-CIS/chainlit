@@ -49,12 +49,23 @@ export class APIBase {
   ) {}
 
   buildEndpoint(path: string) {
+    let fullUrl = `${this.httpEndpoint}${path}`;
     if (this.httpEndpoint.endsWith('/')) {
       // remove trailing slash on httpEndpoint
-      return `${this.httpEndpoint.slice(0, -1)}${path}`;
-    } else {
-      return `${this.httpEndpoint}${path}`;
+      fullUrl = `${this.httpEndpoint.slice(0, -1)}${path}`;
     }
+
+    // Add version parameter for all API endpoints
+    const API_VERSION = '2024-10-15';
+    const url = new URL(fullUrl);
+
+    const params = new URLSearchParams(url.search);
+    // Check if version parameter already exists
+    if (!params.has('version')) {
+      const separator = url.search ? '&' : '?';
+      url.search = url.search + `${separator}version=${API_VERSION}`;
+    }
+    return url.toString();
   }
 
   checkToken(token: string) {
@@ -247,8 +258,8 @@ export class ChainlitAPI extends APIBase {
     return this.buildEndpoint(`/project/file/${id}${queryParams}`);
   }
 
-  getLogoEndpoint(theme: string) {
-    return this.buildEndpoint(`/logo?theme=${theme}`);
+  getLogoEndpoint() {
+    return 'https://res.cloudinary.com/snyk/image/upload/v1741689720/snyk-learn/chatbot-logo.png';
   }
 
   getOAuthEndpoint(provider: string) {
