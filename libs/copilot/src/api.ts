@@ -1,10 +1,11 @@
 import { toast } from 'sonner';
+import { IAdditionalQueryParamsForAPI } from 'types';
 
 import { ChainlitAPI, ClientError } from '@chainlit/react-client';
 
 export function makeApiClient(
   chainlitServer: string,
-  additionalQueryParams: Record<string, string>
+  additionalQueryParams: IAdditionalQueryParamsForAPI
 ) {
   const httpEndpoint = chainlitServer;
 
@@ -19,7 +20,7 @@ export function makeApiClient(
   return new ChainlitAPI(
     httpEndpoint,
     'copilot',
-    additionalQueryParams,
+    additionalQueryParams as Record<string, string>,
     on401,
     onError
   );
