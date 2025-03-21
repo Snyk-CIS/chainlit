@@ -9,4 +9,9 @@ export interface IWidgetConfig {
     className?: string;
   };
   customCssUrl?: string;
+  additionalQueryParamsForAPI?: IAdditionalQueryParamsForAPI;
+}
+
+export interface IAdditionalQueryParamsForAPI {
+  version?: string;
 }
