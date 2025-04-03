@@ -76,10 +76,10 @@ const useChatSession = () => {
 
   const _connect = useCallback(
     ({
-      userEnv,
+      _userEnv,
       accessToken
     }: {
-      userEnv: Record<string, string>;
+      _userEnv: Record<string, string>;
       accessToken?: string;
     }) => {
       const { protocol, host, pathname } = new URL(client.httpEndpoint);
@@ -96,7 +96,6 @@ const useChatSession = () => {
           'X-Chainlit-Client-Type': client.type,
           'X-Chainlit-Session-Id': sessionId,
           'X-Chainlit-Thread-Id': idToResume || '',
-          'user-env': JSON.stringify(userEnv),
           'X-Chainlit-Chat-Profile': chatProfile
             ? encodeURIComponent(chatProfile)
             : ''
