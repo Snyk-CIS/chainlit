@@ -76,10 +76,11 @@ const useChatSession = () => {
 
   const _connect = useCallback(
     ({
-      _userEnv,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      userEnv,
       accessToken
     }: {
-      _userEnv: Record<string, string>;
+      userEnv: Record<string, string>;
       accessToken?: string;
     }) => {
       const { protocol, host, pathname } = new URL(client.httpEndpoint);

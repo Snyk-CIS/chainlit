@@ -54,14 +54,7 @@ export default function Widget({ config }: Props) {
         }
       >
         <Fade in={!isPopoverOpen} timeout={300}>
-          <Box
-            position={'absolute'}
-            top={0}
-            left={0}
-            bottom={0}
-            right={0}
-            p={1.5}
-          >
+          <Box position={'absolute'} top={0} left={0} bottom={0} right={0}>
             {config.button?.imageUrl ? (
               <img width="100%" src={config.button?.imageUrl} />
             ) : (
@@ -79,7 +72,6 @@ export default function Widget({ config }: Props) {
             left={0}
             bottom={0}
             right={0}
-            p={1.5}
             display={'flex'}
             alignItems={'center'}
             justifyContent={'center'}
