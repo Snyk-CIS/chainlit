@@ -101,7 +101,8 @@ const useChatSession = () => {
           'X-Chainlit-Chat-Profile': chatProfile
             ? encodeURIComponent(chatProfile)
             : ''
-        }
+        },
+        requestTimeout: 45000
       });
       setSession((old) => {
         old?.socket?.removeAllListeners();
