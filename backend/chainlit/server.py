@@ -186,7 +186,9 @@ copilot_build_dir = get_build_dir(os.path.join("libs", "copilot"), "copilot")
 
 app = FastAPI(lifespan=lifespan)
 
-sio = socketio.AsyncServer(cors_allowed_origins=[], async_mode="asgi")
+sio = socketio.AsyncServer(
+    cors_allowed_origins=[], async_mode="asgi", ping_interval=15, ping_timeout=10
+)
 
 asgi_app = socketio.ASGIApp(
     socketio_server=sio,
@@ -895,7 +897,7 @@ async def get_file(
             detail="Unauthorized",
         )
 
-     #TODO: Causes 401 error. See https://github.com/Chainlit/chainlit/issues/1472
+    # TODO: Causes 401 error. See https://github.com/Chainlit/chainlit/issues/1472
     # if current_user:
     #     if not session.user or session.user.identifier != current_user.identifier:
     #         raise HTTPException(
