@@ -28,7 +28,6 @@ classifiers = [
 ]
 repository = "https://github.com/Chainlit/chainlit"
 readme = "README.md"
-exclude = ["**/frontend/**/*", "**/copilot/**/**/"]
 include = ["**/frontend/dist/**/*", "**/copilot/dist/**/*"]
 
 [tool.poetry.scripts]
