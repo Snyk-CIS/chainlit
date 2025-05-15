@@ -36,7 +36,7 @@ const useChatData = () => {
 
   const connected = session?.socket.connected && !session?.error;
   const disabled =
-    session?.error ||
+    !connected ||
     loading ||
     askUser?.spec.type === 'file' ||
     askUser?.spec.type === 'action';
