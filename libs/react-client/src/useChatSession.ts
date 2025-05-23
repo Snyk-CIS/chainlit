@@ -91,6 +91,7 @@ const useChatSession = () => {
           : '/ws/socket.io';
 
       const socket = io(uri, {
+        withCredentials: true,
         path,
         transports: ['polling'],
         extraHeaders: {
